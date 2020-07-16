@@ -1,13 +1,19 @@
 import React from 'react';
+import BookImage from './BookImage';
+import { withRouter } from 'react-router-dom';
 
-export default function Library(props) {
+function Library(props) {
 
 
 
     return(
         <>
-        <h3>I'm the library! I hold all the possible stories. They're passed down to me as props from App</h3>
+        <h3>I'm the library! I hold all the possible stories. They're passed down to me as props from App. 
+        Here's my props: {JSON.stringify(props)}</h3>
         {JSON.stringify(props.bookList)}
+        {props.bookList.map(book => <BookImage key={book.id} history={props.history} book={book}/>)}
         </>
     )
 }
+
+export default withRouter(Library);

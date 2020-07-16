@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Library from '../Library/Library';
-import NavBar from '../NavBar/NavBar';
+import Story from '../Story/Story';
+import Home from '../Home/Home';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+
 
 class App extends Component{
   state = ({
@@ -22,12 +30,32 @@ class App extends Component{
   render(){
     return(
       <>
-        <NavBar />
-        <p>Across the top of this page should be a nav bar to let you go to the stories page
-          The stories page should contain a list of stories with images
-          Clicking on a story image should take you to /story with a match param of the story id...
-        </p>
-        <Library bookList={this.state.bookList} />
+     
+        <Router>
+        <h2>I'm the Nav Bar!</h2>
+
+<Link to='/'>Home</Link>
+<Link to='/library'>Library</Link>
+
+<p>Across the top of this page should be a nav bar to let you go to the stories page
+The stories page should contain a list of stories with images
+Clicking on a story image should take you to /story with a match param of the story id...
+here's the props: {JSON.stringify(this.props)}
+</p>
+
+
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/library">
+              <Library bookList={this.state.bookList} history={this.props.history}/>
+            </Route>
+            <Route path='/story/:id' component={Story} />
+            
+          </Switch>
+        </Router>
+
       </>
     )
   }
