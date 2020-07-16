@@ -4,22 +4,23 @@ const router = express.Router();
 
 
 router.get('/:id', (req, res) => {
-    let sqlText = `SELECT * FROM "pattern" WHERE "id" = $1`;
+    let sqlText = `SELECT * FROM "story" WHERE "id" = $1`;
     pool.query(sqlText, [req.params.id]).then( response =>{
         res.send(response.rows);
     }).catch( error => {
-        console.log ('error in getting pattern with id:', req.params.id, error);
+        console.log ('error in getting the story with id:', req.params.id, error);
         res.sendStatus(500);
     });
 });
 
 router.get('/', (req, res) => {
-    let sqlText = `SELECT * from "pattern" ORDER BY "id";`;
+    console.log('in library router');
+    let sqlText = `SELECT * from "story" ORDER BY "id";`;
     pool.query(sqlText).then( response => {
-        console.log('al the patterns', response.rows);
+        console.log('all the stories', response.rows);
         res.send(response.rows);
     }).catch( error => {
-        console.log('error in getting the pattern list', error);
+        console.log('error in getting all the stories', error);
         res.sendStatus(500);
     });
 })

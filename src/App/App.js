@@ -3,14 +3,21 @@ import logo from './logo.svg';
 import './App.css';
 import Library from '../Library/Library';
 import NavBar from '../NavBar/NavBar';
+import axios from 'axios';
 
 class App extends Component{
   state = ({
-    library: [{name: "book1", image: "image1"}, {name: "book2", image: "image2"}]
+    bookList: [],
   })
 
   componentDidMount(){
     //go to the database and get the library. First I have to build the database...
+    axios.get(`/library`)
+    .then(res => {
+      const bookList = res.data;
+      console.log('response', bookList)
+      this.setState({ bookList})
+    });
   }
   render(){
     return(
@@ -20,7 +27,7 @@ class App extends Component{
           The stories page should contain a list of stories with images
           Clicking on a story image should take you to /story with a match param of the story id...
         </p>
-        <Library library={this.state.library} />
+        <Library bookList={this.state.bookList} />
       </>
     )
   }
