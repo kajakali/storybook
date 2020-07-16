@@ -9,12 +9,13 @@ export default function BookImage(props) {
  }
 
 
+
     return(
         <>
-        <h3 onClick={goToBook}>I'm the image of one book. Click on me to go to that story</h3>
+        <h3>{props.book.name.replace(/_/g, " ")}</h3>
         <p>{props.book.id}</p>
-        <img src={require(`../images/${props.book.name}.png`)} alt={props.book.name}/>
-        <p>{props.book.name}</p>
+        <img onClick={goToBook} src={require(`../images/${props.book.name}.png`)} alt={props.book.name}/>
+     
         </>
     )
 }
